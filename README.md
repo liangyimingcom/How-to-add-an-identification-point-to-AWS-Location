@@ -1,16 +1,16 @@
-如何在AWS Location上增加一个标识点？
+# 如何在AWS Location上增加一个标识点？
 
 How to add an identification point to AWS Location?
 
 
 
-**我想实现下图功能，请问使用AWS Location怎么做？**
+## **我想实现下图功能，请问使用AWS Location怎么做？**
 
 ![image-20211011171442841](https://raw.githubusercontent.com/liangyimingcom/storage/master/PicGo/image-20211011171442841.png)
 
 
 
-回答预热：
+### 回答预热：
 
 - 这个功能其实和AWS Location关系不大，是调用一个地图库maplibregl；
 - 调用一个地图库maplibregl的API，在地图上画上一个标记，就算不用Location，也能画；
@@ -20,7 +20,7 @@ How to add an identification point to AWS Location?
 
 
 
-答案：
+### 答案：
 
 这个功能叫：Add a marker to the map，请参考https://aws.amazon.com/blogs/mobile/add-a-map-to-your-webpage-with-amazon-location-service/
 
@@ -45,21 +45,19 @@ const marker = new maplibregl.Marker().setLngLat(position).addTo(map);
 
 
 
-# 使用 Amazon Location Service 将地图添加到您的网页
+## 使用 Amazon Location Service 将地图添加到您的网页
 
 
-
-### *本文由 Amazon Location Service 首席工程师 Seth Fitzsimmons 和高级产品经理 Andrew Johnson 撰写*
 
 Web 开发的一个常见用例是将地图添加到带有特定位置（例如办公室或零售店）上的标记的网页。Amazon Location 是一个很好的解决方案，因为与其他替代方案相比，它以较低的成本提供了来自两个全球知名合作伙伴 Esri 和 HERE 的各种现成地图样式。该服务还提供地理编码功能，可用于确定地址的标记位置。以下是如何组合这些功能以满足此用例的方法。
 
-## 解决方案概述
+### 解决方案概述
 
 对于此解决方案，我们将使用地图资源向在浏览器中运行的 MapLibre GL SDK ( [http://maplibre.org](http://maplibre.org/) )提供地图数据。我们将使用地点索引资源来执行从地址到位置的转换，并使用 Amazon Cognito 来管理将用于检索地图和地点数据的凭证。
 
 ![在用户浏览器中运行的 JavaScript 代码使用 Amazon Cognito 身份池 ID 获取凭证。 该代码使用凭证签署对 Amazon Location Service Map 资源的地图数据请求。 MapLibre GL SDK 使用生成的地图数据向用户显示交互式地图。 JavaScript 代码使用相同的凭据来签署对地点索引资源的地理编码请求，并使用生成的位置在地图上显示标记。](https://d2908q01vomqb2.cloudfront.net/0a57cb53ba59c46fc4b692527a38a87c78d84028/2021/07/12/architecture-diagram.png)
 
-## 演练
+### 演练
 
 实施此解决方案有三个主要步骤：
 
@@ -80,7 +78,7 @@ Web 开发的一个常见用例是将地图添加到带有特定位置（例如�
 
 首先，您必须创建地图、放置索引（如果您要使用地理编码来查找放置标记的位置的纬度和经度）、Cognito 身份池和关联的 AWS Identity and Access Management (IAM) 角色（因此您可以验证对地图和放置索引资源的请求）。对于此示例，我们将使用 Esri 导航矢量样式 (VectorEsriNavigation)，但您可以将其替换为此处引用的任何其他样式：[MapConfiguration – Amazon Location Service](https://docs.aws.amazon.com/location-maps/latest/APIReference/API_MapConfiguration.html). 您可以手动创建这些资源，但 CloudFormation 使这更方便。上述模板将创建所有必需的资源，并使用 IAM 角色策略中的 Condition 子句将生成的身份池 ID 的使用限制为指定域。<u>如果您在本地计算机上使用网络服务器尝试此操作，请使用`localhost:PORT`域，否则您将收到 HTTP 403 Forbidden 错误。</u>
 
-#### 脚步：
+### 脚步：
 
 1. 登录 CloudFormation 控制台
 2. 选择**创建堆栈**>**使用新资源（标准）**
@@ -172,7 +170,7 @@ JavaScript
 
 为避免将来产生费用，只需删除 CloudFormation 堆栈即可。转至**CloudFormation** > **Stacks**，选择您创建的堆栈并单击**Delete**。
 
-## 结论
+### 结论
 
 在这篇文章中，我们学习了如何快速轻松地向网页添加地图和相关标记。Amazon Location Service 使您能够以低成本执行此操作，并利用 Amazon Cognito 和 AWS Identity and Access Management (IAM) 的功能来控制对相关资源的访问。
 
@@ -182,9 +180,9 @@ JavaScript
 
 ------
 
-**以下为备注：**
+# **以下为备注：**
 
-问题1：有一个403的错误，就是解决不了了，真奇怪
+**问题1：有一个403的错误，就是解决不了了，真奇怪**
 
 ![image-20211011172134078](https://raw.githubusercontent.com/liangyimingcom/storage/master/PicGo/image-20211011172134078.png)
 
@@ -192,7 +190,7 @@ JavaScript
 
 
 
-问题2：背景代码汇总：
+**问题2：背景代码汇总：**
 
 ~~~json
 explore.map
